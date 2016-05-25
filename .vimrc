@@ -1,17 +1,13 @@
 " coding: utf-8
-filetype off
-filetype plugin indent off
-set nocompatible
-
 set scrolloff=6
-"set backspace=indent,eol,start
+set backspace=indent,eol,start
 "set autoindent
 "set smartindent
 "set cindent
 set cinkeys-=0#
 "set nobackup
-set backupdir=~/var/vim/back
 "set noswapfile
+set backupdir=~/var/vim/back
 set dir=~/var/vim/swap
 set undodir=~/var/vim/undo
 
