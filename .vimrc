@@ -3,11 +3,11 @@
 set scrolloff=6
 set backspace=indent,eol,start
 set cinkeys-=0#
-"set nobackup
-"set noswapfile
-set backupdir=~/var/vim/back
-set dir=~/var/vim/swap
-set undodir=~/var/vim/undo
+if isdirectory(expand('~/var/vim'))
+    set backupdir=~/var/vim/back
+    set dir=~/var/vim/swap
+    set undodir=~/var/vim/undo
+endif
 
 " no indent for case: , public:
 set cino=:0,g0,t0
