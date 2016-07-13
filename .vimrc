@@ -1,9 +1,7 @@
+" vim: sw=4 ts=4 expandtab:
 " coding: utf-8
 set scrolloff=6
 set backspace=indent,eol,start
-"set autoindent
-"set smartindent
-"set cindent
 set cinkeys-=0#
 "set nobackup
 "set noswapfile
@@ -11,20 +9,17 @@ set backupdir=~/var/vim/back
 set dir=~/var/vim/swap
 set undodir=~/var/vim/undo
 
-"set noexpandtab
 " no indent for case: , public:
 set cino=:0,g0,t0
 set nowrap
-"set showcmd
-"set cmdheight=1
+set showcmd
+set cmdheight=1
 set ignorecase
 set tags=tags;/
 set nowrapscan
 set expandtab
-" always show statusline
-set laststatus=2
-" bell->vbell & vbell=none
-set noerrorbells
+set laststatus=2 " always show statusline
+set noerrorbells " bell->vbell & vbell=none
 set visualbell t_vb=
 set whichwrap=b,s,h,l,<,>,[,]
 set t_Co=256
@@ -44,6 +39,8 @@ set fencs=utf-8,iso-2022-jp,euc-jp,cp932
 set formatoptions+=mM
 
 """ plugins
+
+noremap tt :TagbarToggle<CR>
 
 "let g:ag_prg='ag --column'
 let g:khuno_ignore='E123,E126,E127,E302,E501'
@@ -97,6 +94,8 @@ let g:tagbar_type_go = {
 
 let g:ctrlp_extensions = ['buffer', 'line']
 let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_working_path_mode = 0
+
 
 if isdirectory(expand('~/.vim/bundle/neobundle.vim/')) &&  has('vim_starting')
 set rtp+=~/.vim/bundle/neobundle.vim/
@@ -136,7 +135,8 @@ au BufNewFile,BufRead *.tsv setlocal noexpandtab ts=16
 au BufNewFile,BufRead *.cs  setlocal noexpandtab ts=4
 au FileType gitconfig setlocal ts=8 noexpandtab
 au FileType rst setlocal ts=3 sw=3 expandtab
-au FileType go setlocal sw=4 ts=4 sts=4 noexpandtab
+au FileType go setlocal sw=8 ts=8 sts=8 noexpandtab
+au FileType c setlocal sw=4 ts=4 sts=4 expandtab
 
 set wildignore+=*.a,*.o,*.pyc,*.pyo
 set wildignore+=*/__pycache__/*
