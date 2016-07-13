@@ -40,17 +40,7 @@ set formatoptions+=mM
 
 """ plugins
 
-noremap tt :TagbarToggle<CR>
-
-"let g:ag_prg='ag --column'
-let g:khuno_ignore='E123,E126,E127,E302,E501'
-let g:khuno_max_line_length=99
-
-"let g:jedi#popup_on_dot = 0
-"let g:jedi#autocompletion_command = "<C-x>"
-"let g:gofmt_command = 'goimports'
 let g:vim_markdown_folding_disabled=1
-
 let g:markdown_fenced_languages = [
 \  'css',
 \  'javascript',
@@ -61,6 +51,7 @@ let g:markdown_fenced_languages = [
 \  'python',
 \  'go',
 \]
+
 
 noremap tt :TagbarToggle<CR>
 
@@ -92,42 +83,37 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 
+" ctrlp settings
 let g:ctrlp_extensions = ['buffer', 'line']
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_working_path_mode = 0
 
 
-if isdirectory(expand('~/.vim/bundle/neobundle.vim/')) &&  has('vim_starting')
-set rtp+=~/.vim/bundle/neobundle.vim/
-
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-NeoBundle 'Shougo/neobundle.vim'
-" MacVim-kaoriya provides vimproc
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
-NeoBundle 'rking/ag.vim'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle "ctrlpvim/ctrlp.vim"
-NeoBundle "justinmk/vim-dirvish"
-
-NeoBundle 'fatih/vim-go'
-NeoBundleLazy 'godlygeek/tabular', {"autoload": {"commands": ["Tab", "Tabularize"]}}
-NeoBundleLazy 'alfredodeza/khuno.vim', {"autoload": {"filetype": ["python"]}}
-NeoBundleLazy 'davidhalter/jedi-vim', {"autoload": {"filetype": ["python"]}}
-NeoBundleLazy 'plasticboy/vim-markdown', {"autoload": {"filetype": ["markdown"]}}
-
-" Color
-NeoBundle 'tomasr/molokai'
-
-call neobundle#end()
+""" vim-plug
+"curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if has('vim_starting')
+    set rtp+=~/.vim/plugged/vim-plug
+    if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+        echo 'install vim-plug...'
+        call system('mkdir -p ~/.vim/plugged/vim-plug')
+        call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+    end
 endif
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-plug', {'dir': '~/.vim/plugged/vim-plug/autoload'}
+
+" memo: MacVim-kaoriya provides vimproc
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'rking/ag.vim', { 'on': 'Ag' }
+Plug 'majutsushi/tagbar'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'justinmk/vim-dirvish'
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
+"Plug 'godlygeek/tabular', { 'on': ['Tab', 'Tabularize'] }
+"Plug 'alfredodeza/khuno.vim', { 'for': ['python'] }
+"Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
+call plug#end()
 
 
 au BufNewFile,BufRead *.md  setlocal wrap ft=markdown
