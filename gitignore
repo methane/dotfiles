@@ -1,0 +1,6 @@
+.DS_Store
+.venv
+.vs
+.vscode
+.ruff_cache
+.pdm-python
