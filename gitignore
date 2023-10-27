@@ -4,3 +4,5 @@
 .vscode
 .ruff_cache
 .pdm-python
+.python-version
+*.o.tmp

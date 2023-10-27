@@ -16,22 +16,25 @@ set laststatus=2 " always show statusline
 set noerrorbells " bell->vbell & vbell=none
 set visualbell t_vb=
 set whichwrap=b,s,h,l,<,>,[,]
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set timeoutlen=800
 set ttimeoutlen=10
 set t_Co=256
 
-set showtabline=2   " always show tabline
+set showtabline=1   " auto
+"set showtabline=2   " always show tabline
 set background=dark " dark or light
 
-"noremap j gj
-"noremap k gk
-"noremap <UP> gk
-"noremap <DOWN> gj
 cnoremap <C-A> <Home>
 cnoremap <C-B> <Left>
 cnoremap <C-F> <Right>
+nnoremap j gj
+nnoremap k gk
+nnoremap <UP> gk
+nnoremap <DOWN> gj
 
-set fencs=utf-8,iso-2022-jp,euc-jp,cp932
+"set fencs=utf-8,iso-2022-jp,euc-jp,cp932
+set fencs=utf-8
 set formatoptions+=mM
 
 if &term =~ "xterm"
@@ -42,43 +45,16 @@ if &term =~ "xterm"
 endif
 
 """ ripgrep
-set grepprg=rg\ --vimgrep\ --no-heading
-set grepformat=%f:%l:%c:%m,%f:%l:%m
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 """ plugins
 
 let g:vim_markdown_folding_disabled=1
 
 noremap tt :TagbarToggle<CR>
-
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-
 
 " ctrlp settings
 let g:ctrlp_extensions = ['buffer', 'line']
@@ -101,10 +77,11 @@ Plug 'junegunn/vim-plug', {'dir': '~/.vim/plugged/vim-plug/autoload'}
 
 " memo: MacVim-kaoriya provides vimproc
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'rking/ag.vim', { 'on': 'Ag' }
 Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'justinmk/vim-dirvish'
+Plug 'tyru/caw.vim'
+Plug 'joshdick/onedark.vim'
+"Plug 'justinmk/vim-dirvish'
 "Plug 'fatih/vim-go', { 'for': 'go' }
 "Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
 "Plug 'godlygeek/tabular', { 'on': ['Tab', 'Tabularize'] }
@@ -117,7 +94,7 @@ au BufNewFile,BufRead *.md  setlocal wrap ft=markdown
 au BufNewFile,BufRead *.tsv setlocal noexpandtab ts=16
 au BufNewFile,BufRead *.cs  setlocal expandtab ts=4
 au FileType gitconfig setlocal ts=8 noexpandtab
-au FileType rst setlocal ts=3 sw=3 expandtab
+au FileType rst setlocal ts=3 sw=3 expandtab colorcolumn=70
 au FileType go setlocal sw=4 ts=4 sts=4 noexpandtab
 au FileType c setlocal sw=4 ts=4 sts=4 expandtab colorcolumn=80
 au FileType html setlocal sw=2
@@ -133,7 +110,10 @@ set wildignore+=*/vendor/*,*/pkg/*
 " Change current directory to current file's one.
 command! -nargs=0 CdCurrent cd %:p:h
 
-colorscheme delek
+"colorscheme delek
 "colorscheme railscasts
+
+"colorscheme onedark
+
 syntax on
 filetype plugin indent on
