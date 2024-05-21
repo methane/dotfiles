@@ -1,8 +1,13 @@
+*.o.tmp
 .DS_Store
+.envrc
+.fleet
+.idea
+.pdm-python
+.python-version
+.ruff_cache
 .venv
 .vs
 .vscode
-.ruff_cache
-.pdm-python
-.python-version
-*.o.tmp
+__pycache__
+_tmp
